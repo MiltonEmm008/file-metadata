@@ -1,8 +1,15 @@
 var express = require("express");
 var cors = require("cors");
 require("dotenv").config();
+
+const fs = require("fs");
+const uploadDir = "uploads";
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
+}
+
 const multer = require("multer");
-const upload = multer({ dest: "/uploads" });
+const upload = multer({ dest: "uploads" });
 
 var app = express();
 
