@@ -24,10 +24,16 @@ app.post("/api/fileanalyse", upload.single("upfile"), async (req, res) => {
   if (!req.file) {
     return res.json({ error: "you need to provide a file" });
   }
-  return res.json({
+  const fileInfo = {
     name: req.file.originalname,
     type: req.file.mimetype,
     size: req.file.size,
+  };
+
+  res.json(fileInfo);
+
+  fs.unlink(req.file.path, (err) => {
+    if (err) console.error("Error deleting file:", err);
   });
 });
 
